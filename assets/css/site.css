@@ -1,5 +1,5 @@
 ﻿/* --- PROBE: if you see a RED outline around the page, CSS loaded --- */
-body{outline:3px solid red;outline-offset:-3px}
+
 
 /* Layout & basics */
 :root { --ink:#0f172a; --muted:#64748b; --blue:#2563eb; --card:#ffffff; --border:#e5e7eb; --bg:#f9fafb; }
