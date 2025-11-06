@@ -1,9 +1,104 @@
----
-layout: home
----
-<section>
-  <h2>Recent Posts</h2>
-  <ul>
-    <li><a href="/posts/2025-11-06-welcome.html">Welcome Back!</a></li>
-  </ul>
-</section>
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>MikeGuides Blog</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" href="favicon.ico">
+  <meta name="description" content="Guides, frameworks, and playbooks for smarter pricing, marketing, and automation.">
+</head>
+<body>
+  <header class="container site-header">
+    <div class="brand">MikeGuides Blog</div>
+    <nav>
+      <a href="./">Blog Home</a>
+      <a href="posts/">All Posts</a>
+      <a href="https://mikeguides.co" target="_blank" rel="noopener">MikeGuides.co</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- Featured -->
+    <section class="featured-wrap" id="featured" aria-label="Featured post">
+      <article class="featured-card">
+        <div class="featured-grid">
+          <div class="featured-media"><img id="feat-img" alt=""></div>
+          <div class="card-body">
+            <div class="card-date" id="feat-date"></div>
+            <h2 class="card-title-lg"><a id="feat-title" class="card-link"></a></h2>
+            <p class="card-desc" id="feat-desc"></p>
+            <div class="mt-2">
+              <a id="feat-read" class="card-button">Read the post</a>
+              <a href="https://mikeguides.co" class="card-button" style="margin-left:.5rem" target="_blank" rel="noopener">Visit MikeGuides.co</a>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- Cards grid -->
+    <section class="blog-grid" id="grid" aria-label="Latest posts"></section>
+  </main>
+
+  <footer class="container site-footer">
+    <div>© <span id="year"></span> MikeGuides — All rights reserved.</div>
+  </footer>
+
+  <script>
+  // Post data — first item becomes Featured
+  const POSTS = [
+    {
+      title: "Welcome to the new MikeGuides Blog",
+      date: "Nov 6, 2025",
+      desc: "We rebuilt the blog for speed, clarity, and reliable publishing on GitHub Pages.",
+      href: "2025-11-06-welcome.html",
+      img: "assets/images/cover/welcome.1280x720.jpg"
+    }
+    // ,{ title:"AI Marketing Toolkit", date:"Nov 6, 2025", desc:"Pro prompts and workflows.", href:"2025-11-06-ai-marketing-toolkit.html", img:"assets/images/cover/aimarketingtoolkit.1280x720.jpg" }
+  ];
+
+  const $ = sel => document.querySelector(sel);
+  const fmt = s => (s||"").toString();
+  const fallback = "assets/images/cover/default.jpg";
+
+  // Featured
+  if (POSTS.length) {
+    const f = POSTS[0];
+    $("#feat-img").src = f.img || fallback;
+    $("#feat-img").alt = f.title;
+    $("#feat-title").textContent = f.title;
+    $("#feat-title").href = f.href + "#content";
+    $("#feat-date").textContent = f.date || "";
+    $("#feat-desc").textContent = f.desc || "";
+    $("#feat-read").href = f.href + "#content";
+    $("#feat-img").addEventListener("error", e => e.target.src = fallback);
+  } else {
+    document.getElementById("featured").classList.add("hidden");
+  }
+
+  // Grid
+  const grid = document.getElementById("grid");
+  POSTS.slice(1).forEach(p => {
+    const card = document.createElement("article");
+    card.className = "blog-card";
+    card.innerHTML = `
+      <a href="${p.href}#content" class="blog-card-link">
+        <div class="card-media">
+          <img src="${p.img || fallback}" alt="${p.title}">
+        </div>
+        <div class="card-body">
+          <div class="card-date">${fmt(p.date)}</div>
+          <h3 class="card-title">${fmt(p.title)}</h3>
+          ${p.desc ? `<p class="card-desc">${p.desc}</p>` : ``}
+          <span class="card-cta">Read more</span>
+        </div>
+      </a>`;
+    card.querySelector("img").addEventListener("error", e => e.target.src = fallback);
+    grid.appendChild(card);
+  });
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
