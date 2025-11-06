@@ -1,0 +1,37 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>All Posts — MikeGuides Blog</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <header class="site-header" style="max-width:960px;margin:2rem auto 1rem;padding:0 1rem;display:flex;gap:1rem;">
+    <a href="../">Blog Home</a>
+    <a href="https://mikeguides.co" target="_blank" rel="noopener">MikeGuides.co</a>
+  </header>
+
+  <main style="max-width:960px;margin:0 auto;padding:0 1rem 3rem">
+    <h1>All Posts</h1>
+    <ul id="post-list"></ul>
+  </main>
+
+  <script>
+  // Simple auto-list using links you add below:
+  const posts = [
+    // ["Title", "2025-11-06-welcome.html"],
+    // ["AI Marketing Toolkit", "2025-11-06-ai-marketing-toolkit.html"],
+  ];
+  const ul = document.getElementById('post-list');
+  posts.forEach(([title, file]) => {
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = file;
+    a.textContent = title;
+    li.appendChild(a);
+    ul.appendChild(li);
+  });
+  </script>
+</body>
+</html>
