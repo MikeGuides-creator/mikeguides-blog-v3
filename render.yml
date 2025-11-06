@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: umami-analytics
+    plan: free
+    env: docker
+    autoDeploy: true
+    # Use official Umami image (PostgreSQL flavor)
+    image:
+      url: ghcr.io/umami-software/umami:postgresql
+    # Optional healthcheck
+    healthCheckPath: /
+    envVars:
+      # Paste a Postgres connection string here (e.g. from Neon)
+      # format: postgres://USER:PASSWORD@HOST/DBNAME?sslmode=require
+      - key: DATABASE_URL
+        sync: false    # we'll fill this in Render UI
+      # Long random string (used to hash passwords)
+      - key: HASH_SALT
+        generateValue: true
+      # Cuts chatter; recommended
+      - key: UMAMI_DISABLE_TELEMETRY
+        value: "true"
+      # Recommended for NextAuth; any long random value
+      - key: NEXTAUTH_SECRET
+        generateValue: true
+      # Set at deploy time to your Render URL (or custom domain later)
+      - key: NEXTAUTH_URL
+        sync: false
